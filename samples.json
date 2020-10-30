@@ -1,0 +1,6 @@
+{
+    "request": {
+        "normal_rq":   "/css/style.css",
+        "abnormal_rq": "/Storage/aster/web.config.temp"
+    }
+}

@@ -19,5 +19,5 @@ In the course of my implementation of these algorithms, I found classical versio
 - [x] prepare ppt, result pics, model pics, description pics and other necessary pics
 - [x] restructure programs
 - [ ] prepare report
-- [ ] upload to github and gitee
+- [x] upload to github
 

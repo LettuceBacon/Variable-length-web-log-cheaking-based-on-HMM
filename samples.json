@@ -1,6 +1,6 @@
 {
     "request": {
-        "normal_rq":   "/css/style.css",
-        "abnormal_rq": "/Storage/aster/web.config.temp"
+        "normal_rq":   "/js/vendor/modernizr-2.8.3.min.js",
+        "abnormal_rq": "/krbcd25667.asp;.jpg iis6"
     }
 }

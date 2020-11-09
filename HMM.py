@@ -5,6 +5,7 @@ from json import loads
 from json import dumps
 
 
+# fill up a request with itself to max length
 def fill_up(a_request, max_len):
     temp = a_request
     while len(a_request) < max_len:
@@ -12,18 +13,20 @@ def fill_up(a_request, max_len):
     return a_request
 
 
+# read web logs from 'web_logs.csv'
 def read_data(requests, max_len):
     weblog_file = open('web_logs.csv')
     csv_reader = reader(weblog_file, delimiter=',')
     for a_log in csv_reader:
         cmd_url = a_log[2].split(' ')
         a_request = cmd_url[1]
-        a_request = unquote(a_request)
+        a_request = unquote(a_request).lower()
         a_request = fill_up(a_request, max_len)
         requests.append(a_request)
     weblog_file.close()
 
 
+# decide a character's class from four possibilities
 def class_of(a_char, char_class):
     if a_char == '/':
         a_char_class = char_class.index("slash")
@@ -36,6 +39,7 @@ def class_of(a_char, char_class):
     return a_char_class
 
 
+# statisic training logs to generate TPM, OLM and IPD
 def process_data(max_len, requests, char_set, char_class, TPM, OLM, IPD, n, m):
     pre_char_class = 0
     for a_request in requests:
@@ -72,6 +76,7 @@ def process_data(max_len, requests, char_set, char_class, TPM, OLM, IPD, n, m):
     # print(OLM)
 
 
+# write HMM to a file, 'HMM_model.json'
 def write_HMM(n, m, IPD, TPM, OLM):
     python_value = {
         'n': n,
@@ -133,6 +138,7 @@ def hmm_backword(TPM, IPD, OLM, a_request, n, m, char_set, max_len):
     return P, beta
 
 
+# main
 if __name__ == "__main__":
     # max length of url
     # if a request is less than this length, then fill up it with itself
@@ -173,9 +179,9 @@ if __name__ == "__main__":
     # forward and backward algorithm
     samples_file = open('samples.json', 'r')
     json_value = loads(samples_file.read())
-    normal_rq = unquote(json_value['request']['normal_rq'])
+    normal_rq = unquote(json_value['request']['normal_rq']).lower()
     normal_rq = fill_up(normal_rq, max_len)
-    abnormal_rq = unquote(json_value['request']['abnormal_rq'])
+    abnormal_rq = unquote(json_value['request']['abnormal_rq']).lower()
     abnormal_rq = fill_up(abnormal_rq, max_len)
     samples_file.close()
 
